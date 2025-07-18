@@ -222,24 +222,38 @@ const CryptoWallet = ({ user, updateUser, onDataUpdate }) => {
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 sm:space-y-8">
       <Card className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-slate-700 backdrop-blur-sm">
-        <CardHeader><CardTitle className="text-2xl text-white">Mon Portefeuille</CardTitle></CardHeader>
-        <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-xl sm:text-2xl text-white">Mon Portefeuille</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 sm:space-y-6 p-4 sm:p-6 pt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="p-6 rounded-lg bg-gradient-to-r from-blue-600/30 to-purple-600/30 text-center flex flex-col items-center justify-center">
-                <Briefcase className="w-8 h-8 mb-2 text-blue-300"/><p className="text-lg text-gray-300">Capital Investi</p><p className="text-4xl font-bold text-white">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(user.investedCapital || 0)}</p>
+                <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 mb-2 text-blue-300"/>
+                <p className="text-sm sm:text-base lg:text-lg text-gray-300">Capital Investi</p>
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(user.investedCapital || 0)}</p>
               </div>
               <div className="p-6 rounded-lg bg-gradient-to-r from-green-600/30 to-cyan-600/30 text-center flex flex-col items-center justify-center">
-                <BarChartBig className="w-8 h-8 mb-2 text-green-300"/><p className="text-lg text-gray-300">Bénéfices</p><p className="text-4xl font-bold text-white">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(displayedBenefits)}</p>
+                <BarChartBig className="w-6 h-6 sm:w-8 sm:h-8 mb-2 text-green-300"/>
+                <p className="text-sm sm:text-base lg:text-lg text-gray-300">Bénéfices</p>
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(displayedBenefits)}</p>
               </div>
-               <div className="p-6 rounded-lg bg-gradient-to-r from-purple-600/30 to-pink-600/30 text-center flex flex-col items-center justify-center">
-                <Layers className="w-8 h-8 mb-2 text-purple-300"/><p className="text-lg text-gray-300">Capital Total</p><p className="text-4xl font-bold text-white">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(user.totalCapital || 0)}</p>
+               <div className="p-6 rounded-lg bg-gradient-to-r from-purple-600/30 to-pink-600/30 text-center flex flex-col items-center justify-center sm:col-span-2 lg:col-span-1">
+                <Layers className="w-6 h-6 sm:w-8 sm:h-8 mb-2 text-purple-300"/>
+                <p className="text-sm sm:text-base lg:text-lg text-gray-300">Capital Total</p>
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(user.totalCapital || 0)}</p>
               </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Dialog open={isDepositOpen} onOpenChange={setDepositOpen}>
-              <DialogTrigger asChild><Button className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-lg"><ArrowDownToLine className="w-5 h-5 mr-2" /> Déposer du Capital</Button></DialogTrigger>
+              <DialogTrigger asChild>
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 sm:py-6 text-sm sm:text-base lg:text-lg">
+                  <ArrowDownToLine className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> 
+                  <span className="hidden sm:inline">Déposer du Capital</span>
+                  <span className="sm:hidden">Déposer</span>
+                </Button>
+              </DialogTrigger>
               <DialogContent className="sm:max-w-md bg-slate-900 border-slate-700 text-white">
                 <DialogHeader><DialogTitle>Déposer du Capital</DialogTitle></DialogHeader>
                 <Tabs value={activeDepositTab} onValueChange={setActiveDepositTab} className="w-full mt-4">
@@ -262,7 +276,13 @@ const CryptoWallet = ({ user, updateUser, onDataUpdate }) => {
               </DialogContent>
             </Dialog>
             <Dialog open={isWithdrawOpen} onOpenChange={(open) => { if (!open) { setWithdrawOpen(false); setWithdrawStep(1); }}}>
-              <DialogTrigger asChild><Button onClick={handleWithdrawalAttempt} className="w-full bg-red-600 hover:bg-red-700 text-white py-6 text-lg"><ArrowUpFromLine className="w-5 h-5 mr-2" /> Effectuer un Retrait</Button></DialogTrigger>
+              <DialogTrigger asChild>
+                <Button onClick={handleWithdrawalAttempt} className="w-full bg-red-600 hover:bg-red-700 text-white py-4 sm:py-6 text-sm sm:text-base lg:text-lg">
+                  <ArrowUpFromLine className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> 
+                  <span className="hidden sm:inline">Effectuer un Retrait</span>
+                  <span className="sm:hidden">Retirer</span>
+                </Button>
+              </DialogTrigger>
               <DialogContent className="sm:max-w-lg bg-slate-900 border-slate-700 text-white">
                 <DialogHeader><DialogTitle>Retirer vos fonds en Crypto</DialogTitle></DialogHeader>
                 {withdrawStep === 1 && (
@@ -316,23 +336,32 @@ const CryptoWallet = ({ user, updateUser, onDataUpdate }) => {
       </Card>
       
       <Card className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-slate-700 backdrop-blur-sm">
-        <CardHeader><CardTitle className="text-2xl text-white flex items-center"><History className="w-6 h-6 mr-2"/>Historique des Transactions</CardTitle></CardHeader>
-        <CardContent>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-lg sm:text-xl lg:text-2xl text-white flex items-center">
+            <History className="w-5 h-5 sm:w-6 sm:h-6 mr-2"/>
+            <span className="hidden sm:inline">Historique des Transactions</span>
+            <span className="sm:hidden">Historique</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-4 sm:p-6 pt-0">
           {transactions.length === 0 ? <p className="text-center text-gray-400">Vous n'avez encore aucune transaction.</p> : (
-            <ul className="space-y-3">
+            <ul className="space-y-3 sm:space-y-4">
               {transactions.map(tx => (
-                  <li key={tx.id} className="p-4 bg-slate-800 rounded-lg border border-slate-700/50">
-                    <div className="flex justify-between items-center">
+                  <li key={tx.id} className="p-3 sm:p-4 bg-slate-800 rounded-lg border border-slate-700/50">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
                       <div>
-                        <p className="font-semibold text-white">{getTransactionType(tx)}</p>
-                        <p className="text-sm text-gray-300">{getTransactionDetails(tx)}</p>
+                        <p className="font-semibold text-white text-sm sm:text-base">{getTransactionType(tx)}</p>
+                        <p className="text-xs sm:text-sm text-gray-300">{getTransactionDetails(tx)}</p>
                         <p className="text-xs text-gray-400">{new Date(tx.date).toLocaleString('fr-FR')}</p>
                       </div>
-                      {getStatusBadge(tx)}
+                      <div className="self-end sm:self-auto">{getStatusBadge(tx)}</div>
                     </div>
                      {(tx.adminComment || tx.adminNote) && (
-                        <div className="mt-2 p-2 bg-slate-700/50 rounded-md text-xs">
-                          <p className="text-cyan-300 flex items-center"><MessageSquare className="w-4 h-4 mr-2" /> Note de l'admin : <span className="text-gray-300 ml-1">{tx.adminComment || tx.adminNote}</span></p>
+                        <div className="mt-2 p-2 bg-slate-700/50 rounded-md text-xs sm:text-sm">
+                          <p className="text-cyan-300 flex items-start">
+                            <MessageSquare className="w-4 h-4 mr-2 mt-0.5 shrink-0" /> 
+                            <span>Note de l'admin : <span className="text-gray-300 ml-1">{tx.adminComment || tx.adminNote}</span></span>
+                          </p>
                         </div>
                       )}
                   </li>

@@ -102,21 +102,27 @@ const ReviewCard = ({ review, index }) => (
 
 const CustomerReviews = () => {
   return (
-    <div className="py-12">
+    <div className="py-8 sm:py-12">
+      <div className="container mx-auto px-4">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-center mb-8 sm:mb-12"
       >
-        <h2 className="text-4xl font-extrabold text-white sm:text-5xl">Ce que Nos Investisseurs Disent</h2>
-        <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">La confiance de notre communauté est notre plus grande réussite.</p>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+          Ce que Nos Investisseurs Disent
+        </h2>
+        <p className="mt-4 text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          La confiance de notre communauté est notre plus grande réussite.
+        </p>
       </motion.div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
         {reviews.map((review, index) => (
           <ReviewCard key={index} review={review} index={index} />
         ))}
+      </div>
       </div>
     </div>
   );

@@ -18,25 +18,32 @@ const plans = [
 const cryptoPrices = { BTC: 60000, ETH: 3000, SOL: 150 };
 
 const PlanCard = ({ plan, index, onSelectPlan }) => (
-  <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.15, duration: 0.5 }}>
-    <Card className={`relative flex flex-col h-full bg-slate-900/50 border-2 border-slate-800 backdrop-blur-sm hover:border-${plan.color}-500 hover:scale-105 transition-all duration-300 shadow-2xl shadow-slate-900/50`}>
+  <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.15, duration: 0.5 }} className="h-full">
+    <Card className={`relative flex flex-col h-full bg-slate-900/50 border-2 border-slate-800 backdrop-blur-sm hover:border-${plan.color}-500 hover:scale-105 transition-all duration-300 shadow-2xl shadow-slate-900/50 group`}>
       {plan.popular && <div className="absolute -top-3 right-5 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">POPULAIRE</div>}
-      <CardHeader className="text-center">
+      <CardHeader className="text-center p-4 sm:p-6">
         <div className="mx-auto mb-4 p-3 bg-slate-700/50 rounded-full">{plan.icon}</div>
-        <CardTitle className="text-2xl font-bold text-white">{plan.name}</CardTitle>
-        <CardDescription className="text-gray-400">Bénéfice cible : <span className={`font-semibold text-${plan.color}-400`}>{plan.profitRange}</span></CardDescription>
+        <CardTitle className="text-xl sm:text-2xl font-bold text-white">{plan.name}</CardTitle>
+        <CardDescription className="text-sm sm:text-base text-gray-400">
+          Bénéfice cible : <span className={`font-semibold text-${plan.color}-400`}>{plan.profitRange}</span>
+        </CardDescription>
       </CardHeader>
-      <CardContent className="flex-grow space-y-4">
+      <CardContent className="flex-grow space-y-4 p-4 sm:p-6 pt-0">
         <div className="text-center">
-          <span className="text-4xl font-extrabold text-white">{plan.price}€</span>
-          <span className="text-gray-400"> / investissement</span>
+          <span className="text-3xl sm:text-4xl font-extrabold text-white">{plan.price}€</span>
+          <span className="text-sm sm:text-base text-gray-400"> / investissement</span>
         </div>
-        <ul className="space-y-3 text-gray-300">
-          {plan.features.map((feature, i) => ( <li key={i} className="flex items-center"> <CheckCircle className={`w-5 h-5 mr-3 text-${plan.color}-400 shrink-0`} /> <span>{feature}</span> </li> ))}
+        <ul className="space-y-3 text-gray-300 text-sm sm:text-base">
+          {plan.features.map((feature, i) => ( 
+            <li key={i} className="flex items-start"> 
+              <CheckCircle className={`w-4 h-4 sm:w-5 sm:h-5 mr-3 text-${plan.color}-400 shrink-0 mt-0.5`} /> 
+              <span className="leading-relaxed">{feature}</span> 
+            </li> 
+          ))}
         </ul>
       </CardContent>
-      <CardFooter>
-        <Button onClick={() => onSelectPlan(plan)} className={`w-full bg-gradient-to-r from-${plan.color}-600 to-${plan.color}-500 hover:from-${plan.color}-700 hover:to-${plan.color}-600 text-white font-bold py-3 text-base`}>
+      <CardFooter className="p-4 sm:p-6 pt-0">
+        <Button onClick={() => onSelectPlan(plan)} className={`w-full bg-gradient-to-r from-${plan.color}-600 to-${plan.color}-500 hover:from-${plan.color}-700 hover:to-${plan.color}-600 text-white font-bold py-3 text-sm sm:text-base group-hover:shadow-lg transition-all duration-300`}>
           Choisir ce Plan
         </Button>
       </CardFooter>
@@ -136,19 +143,25 @@ const InvestmentPlans = ({ onInvestment, user, onLoginRequired, updateUser }) =>
 
   return (
     <>
-      <div className="py-12">
+      <div className="py-8 sm:py-12">
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12 px-4"
         >
-          <h2 className="text-4xl font-extrabold text-white sm:text-5xl">Des Plans Conçus pour Votre Succès</h2>
-          <p className="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">Choisissez le plan qui correspond à vos ambitions et rejoignez notre communauté de plus de 500 investisseurs satisfaits.</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+            Des Plans Conçus pour Votre Succès
+          </h2>
+          <p className="mt-4 text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Choisissez le plan qui correspond à vos ambitions et rejoignez notre communauté de plus de 500 investisseurs satisfaits.
+          </p>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {plans.map((plan, index) => <PlanCard key={plan.name} plan={plan} index={index} onSelectPlan={handleSelectPlan} />)}
+          </div>
         </div>
       </div>
 
