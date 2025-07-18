@@ -2,14 +2,49 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Zap, TrendingUp, BarChart, Lock, BrainCircuit, Clock4, Users, Send, Menu, X } from 'lucide-react';
+import { CheckCircle, Zap, TrendingUp, BarChart, Lock, BrainCircuit, Clock4, Users, Send, Menu, X, Activity, Shield, Cpu, Database, Wifi, Eye } from 'lucide-react';
 import Ticker from '@/components/Ticker';
 import InvestmentPlans from '@/components/InvestmentPlans';
 import CustomerReviews from '@/components/CustomerReviews';
 import LiveTrading from '@/components/LiveTrading';
 
 const Section = ({ children, className = '' }) => (
-  <section className={`py-12 sm:py-20 lg:py-28 ${className}`}>{children}</section>
+  <section className={`py-16 sm:py-24 lg:py-32 ${className}`}>{children}</section>
+);
+
+const TechParticles = () => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    {[...Array(20)].map((_, i) => (
+      <div
+        key={i}
+        className="particle absolute animate-pulse"
+        style={{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 3}s`,
+          animationDuration: `${2 + Math.random() * 3}s`
+        }}
+      />
+    ))}
+  </div>
+);
+
+const MatrixBackground = () => (
+  <div className="matrix-bg">
+    {[...Array(50)].map((_, i) => (
+      <div
+        key={i}
+        className="matrix-char"
+        style={{
+          left: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 10}s`,
+          animationDuration: `${8 + Math.random() * 4}s`
+        }}
+      >
+        {String.fromCharCode(0x30A0 + Math.random() * 96)}
+      </div>
+    ))}
+  </div>
 );
 
 const LandingScreen = ({ onLoginRequired }) => {
@@ -24,28 +59,44 @@ const LandingScreen = ({ onLoginRequired }) => {
     }
 
   return (
-    <div className="bg-slate-900 text-white overflow-x-hidden">
-      <header className="fixed top-0 left-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
+    <div className="tech-bg text-white overflow-x-hidden min-h-screen">
+      <MatrixBackground />
+      <TechParticles />
+      
+      <header className="fixed top-0 left-0 w-full z-50 glass-card border-b border-cyan-500/20">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-xl sm:text-2xl font-bold gradient-text">CryptoBoost</h1>
+            <motion.h1 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="text-2xl sm:text-3xl font-bold gradient-text-primary font-mono glitch"
+            >
+              ⚡ CryptoBoost
+            </motion.h1>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
-              <button onClick={() => handleScrollTo('plans')} className="text-gray-300 hover:text-white transition-colors">Plans</button>
-              <button onClick={() => handleScrollTo('how-it-works')} className="text-gray-300 hover:text-white transition-colors">Comment ça marche</button>
-              <button onClick={() => handleScrollTo('reviews')} className="text-gray-300 hover:text-white transition-colors">Avis</button>
-              <Button onClick={onLoginRequired} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+            <nav className="hidden md:flex items-center space-x-8">
+              <button onClick={() => handleScrollTo('plans')} className="text-cyan-300 hover:text-cyan-100 transition-all duration-300 hover:neon-glow font-medium">
+                Plans
+              </button>
+              <button onClick={() => handleScrollTo('how-it-works')} className="text-cyan-300 hover:text-cyan-100 transition-all duration-300 hover:neon-glow font-medium">
+                Technologie
+              </button>
+              <button onClick={() => handleScrollTo('reviews')} className="text-cyan-300 hover:text-cyan-100 transition-all duration-300 hover:neon-glow font-medium">
+                Communauté
+              </button>
+              <Button onClick={onLoginRequired} className="btn-tech px-6 py-2 font-semibold">
+                <Activity className="w-4 h-4 mr-2" />
                 Connexion
               </Button>
             </nav>
 
             {/* Mobile Menu Button */}
             <button 
-              className="md:hidden p-2"
+              className="md:hidden p-2 glass-card rounded-lg neon-border"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-cyan-300" /> : <Menu className="w-6 h-6 text-cyan-300" />}
             </button>
           </div>
 
@@ -54,14 +105,21 @@ const LandingScreen = ({ onLoginRequired }) => {
             <motion.nav 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="md:hidden mt-4 pb-4 border-t border-slate-800 pt-4"
+              className="md:hidden mt-4 pb-4 border-t border-cyan-500/20 pt-4 glass-card-dark rounded-lg"
             >
-              <div className="flex flex-col space-y-4">
-                <button onClick={() => handleScrollTo('plans')} className="text-left text-gray-300 hover:text-white transition-colors">Plans</button>
-                <button onClick={() => handleScrollTo('how-it-works')} className="text-left text-gray-300 hover:text-white transition-colors">Comment ça marche</button>
-                <button onClick={() => handleScrollTo('reviews')} className="text-left text-gray-300 hover:text-white transition-colors">Avis</button>
-                <Button onClick={onLoginRequired} className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                  Connexion
+              <div className="flex flex-col space-y-4 p-4">
+                <button onClick={() => handleScrollTo('plans')} className="text-left text-cyan-300 hover:text-cyan-100 transition-colors font-medium">
+                  Plans d'Investissement
+                </button>
+                <button onClick={() => handleScrollTo('how-it-works')} className="text-left text-cyan-300 hover:text-cyan-100 transition-colors font-medium">
+                  Technologie IA
+                </button>
+                <button onClick={() => handleScrollTo('reviews')} className="text-left text-cyan-300 hover:text-cyan-100 transition-colors font-medium">
+                  Communauté
+                </button>
+                <Button onClick={onLoginRequired} className="w-full btn-tech">
+                  <Activity className="w-4 h-4 mr-2" />
+                  Accéder à la Plateforme
                 </Button>
               </div>
             </motion.nav>
@@ -71,82 +129,164 @@ const LandingScreen = ({ onLoginRequired }) => {
       
       <main>
         {/* Hero Section */}
-        <Section className="relative min-h-screen flex items-center bg-grid-slate-800/[0.2] pt-20">
-             <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/80 to-slate-900"></div>
-            <div className="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-purple-600/10 sm:bg-purple-600/20 rounded-full filter blur-3xl animate-pulse"></div>
-            <div className="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-cyan-400/10 sm:bg-cyan-400/20 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
+        <Section className="relative min-h-screen flex items-center pt-20 cyber-grid">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40"></div>
+          
+          {/* Floating Tech Elements */}
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 neon-border rounded-full animate-float opacity-20"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-24 h-24 neon-border rounded-lg animate-float opacity-30" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/2 right-1/3 w-16 h-16 neon-border rounded-full animate-float opacity-25" style={{animationDelay: '4s'}}></div>
+          
           <div className="container mx-auto px-4 relative z-10 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              className="mb-8"
+            >
+              <div className="inline-flex items-center px-4 py-2 glass-card rounded-full border border-cyan-500/30 mb-6">
+                <Wifi className="w-4 h-4 text-green-400 mr-2 status-online" />
+                <span className="text-sm font-mono text-cyan-300">SYSTÈME ACTIF • 24/7 TRADING</span>
+              </div>
+            </motion.div>
+
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight leading-tight"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 tracking-tight leading-tight"
             >
-              <span className="block sm:inline">💹 Investissez plus intelligemment</span>
-              <span className="block sm:inline"> avec les bots d'arbitrage </span>
-              <span className="gradient-text block sm:inline">Crypto Boost</span>
+              <span className="block gradient-text-primary font-mono">CRYPTO</span>
+              <span className="block text-white">ARBITRAGE</span>
+              <span className="block gradient-text-success neon-text">AUTOMATION</span>
             </motion.h1>
+
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 px-4"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="max-w-4xl mx-auto text-lg sm:text-xl md:text-2xl text-cyan-100 mb-10 px-4 leading-relaxed"
             >
-              Boostez vos revenus passifs grâce à nos bots crypto intelligents, qui exploitent les écarts de prix entre plateformes 24h/24, 7j/7 — automatiquement, sans expertise requise.
+              <span className="font-mono text-cyan-300">[SYSTÈME IA]</span> Exploitez les écarts de prix crypto avec nos algorithmes haute fréquence. 
+              <span className="gradient-text-success font-semibold"> Rendements automatisés 24h/24</span> sans intervention humaine.
             </motion.p>
+
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row justify-center gap-4 px-4"
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row justify-center gap-6 px-4 mb-12"
             >
-              <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold text-sm sm:text-base" onClick={() => handleScrollTo('plans')}>
-                👉 Lancer mon premier bot
+              <Button 
+                size="lg" 
+                className="btn-tech px-8 py-4 text-lg font-bold neon-border animate-pulse-neon" 
+                onClick={() => handleScrollTo('plans')}
+              >
+                <Zap className="w-5 h-5 mr-2" />
+                ACTIVER BOT TRADING
               </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-sm sm:text-base" onClick={() => handleScrollTo('how-it-works')}>
-                Découvrir comment ça marche
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="glass-card border-cyan-500/50 hover:border-cyan-300 text-cyan-100 px-8 py-4 text-lg font-semibold" 
+                onClick={() => handleScrollTo('how-it-works')}
+              >
+                <Eye className="w-5 h-5 mr-2" />
+                VOIR LA TECH
               </Button>
             </motion.div>
+
+            {/* Stats Dashboard */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-2 text-green-400 px-4"
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto"
             >
-              <Users className="w-5 h-5" />
-              <p className="text-gray-300 text-sm text-center sm:text-left">
-                +500 investisseurs actifs. <span className="font-semibold text-white">Rejoignez les 30-40 nouveaux membres de ce mois.</span>
-              </p>
+              {[
+                { label: "TRADERS ACTIFS", value: "500+", icon: <Users className="w-6 h-6" />, color: "text-cyan-400" },
+                { label: "UPTIME SYSTÈME", value: "99.9%", icon: <Activity className="w-6 h-6" />, color: "text-green-400" },
+                { label: "TRADES/SECONDE", value: "1,200", icon: <Cpu className="w-6 h-6" />, color: "text-purple-400" }
+              ].map((stat, i) => (
+                <div key={i} className="glass-card p-6 rounded-xl neon-border text-center">
+                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-black/30 mb-3 ${stat.color}`}>
+                    {stat.icon}
+                  </div>
+                  <div className={`text-2xl font-bold font-mono ${stat.color}`}>{stat.value}</div>
+                  <div className="text-sm text-gray-400 font-medium">{stat.label}</div>
+                  <div className="data-bar mt-2"></div>
+                </div>
+              ))}
             </motion.div>
           </div>
         </Section>
 
-        {/* En une phrase */}
-        <Section className="bg-slate-900/50">
-          <div className="container mx-auto px-4 text-center">
-             <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.8 }}
-                className="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto mb-8 sm:mb-10 leading-relaxed"
+        {/* Tech Features */}
+        <Section className="bg-black/20">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-16"
             >
-                Crypto Boost, c’est une solution d’investissement automatisée basée sur l’arbitrage crypto, une stratégie éprouvée qui consiste à acheter sur une plateforme au prix le plus bas et vendre sur une autre au prix le plus haut — en quelques secondes.
-            </motion.p>
-             <motion.div 
-                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto"
-            >
-                {["100% automatisé", "Rendements réguliers", "Risques contrôlés", "Convient aux débutants"].map((item, i) => (
-                    <div key={i} className="flex items-center justify-center sm:justify-start gap-2 text-base sm:text-lg text-green-400 p-3 rounded-lg bg-slate-800/30">
-                        <CheckCircle className="w-6 h-6" />
-                        <span className="font-semibold text-gray-200">{item}</span>
-                    </div>
-                ))}
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+                <span className="gradient-text-primary font-mono">TECHNOLOGIE</span> DE POINTE
+              </h2>
+              <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
+                Infrastructure haute performance pour l'arbitrage crypto automatisé
+              </p>
             </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { 
+                  icon: <Shield className="w-12 h-12 text-cyan-400"/>, 
+                  title: "SÉCURITÉ MILITAIRE", 
+                  desc: "Chiffrement AES-256, authentification multi-facteurs, fonds sécurisés sur exchanges régulés.",
+                  tech: "ENCRYPTION • MFA • COLD STORAGE"
+                },
+                { 
+                  icon: <Cpu className="w-12 h-12 text-purple-400"/>, 
+                  title: "IA PRÉDICTIVE", 
+                  desc: "Algorithmes d'apprentissage automatique analysant 50+ indicateurs en temps réel.",
+                  tech: "MACHINE LEARNING • NEURAL NETWORKS"
+                },
+                { 
+                  icon: <Activity className="w-12 h-12 text-green-400"/>, 
+                  title: "EXÉCUTION ULTRA-RAPIDE", 
+                  desc: "Latence sub-milliseconde, connexions directes aux exchanges, arbitrage haute fréquence.",
+                  tech: "HFT • LOW LATENCY • API DIRECT"
+                },
+                { 
+                  icon: <Database className="w-12 h-12 text-yellow-400"/>, 
+                  title: "BIG DATA ANALYTICS", 
+                  desc: "Traitement de millions de points de données, détection d'opportunités en temps réel.",
+                  tech: "REAL-TIME • PATTERN RECOGNITION"
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.15, duration: 0.5 }}
+                  className="group"
+                >
+                  <Card className="h-full glass-card neon-border p-8 text-center hover:neon-glow transition-all duration-500 group-hover:scale-105">
+                    <div className="mb-6 inline-block p-4 glass-card-dark rounded-full animate-float">
+                      {item.icon}
+                    </div>
+                    <h3 className="text-xl font-bold mb-4 text-white font-mono">{item.title}</h3>
+                    <p className="text-gray-300 leading-relaxed mb-4">{item.desc}</p>
+                    <div className="text-xs font-mono text-cyan-400 bg-black/30 px-3 py-1 rounded-full inline-block">
+                      {item.tech}
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </Section>
 
@@ -154,116 +294,105 @@ const LandingScreen = ({ onLoginRequired }) => {
           <InvestmentPlans onLoginRequired={onLoginRequired} />
         </div>
 
-        {/* Pourquoi choisir Crypto Boost */}
-        <Section className="bg-slate-900/50">
-          <div className="container mx-auto px-4">
-             <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="text-center mb-12 sm:mb-16"
-            >
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
-                Pourquoi des centaines d'investisseurs ont déjà adopté nos bots d'arbitrage ?
-              </h2>
-            </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-                {[
-                    { icon: <Lock className="w-10 h-10 text-green-400"/>, title: "Sécurité & transparence", desc: "Vos fonds restent sur votre compte exchange. Nos bots ne peuvent ni retirer, ni déplacer votre argent." },
-                    { icon: <BarChart className="w-10 h-10 text-blue-400"/>, title: "Performance mesurée", desc: "Des stratégies testées sur des milliers de transactions. Vous voyez vos résultats en temps réel." },
-                    { icon: <BrainCircuit className="w-10 h-10 text-purple-400"/>, title: "Technologie intelligente", desc: "Nos algorithmes repèrent instantanément les écarts de prix les plus rentables entre plateformes." },
-                    { icon: <Clock4 className="w-10 h-10 text-yellow-400"/>, title: "Automatisation totale", desc: "Installez, connectez, laissez faire. Gagnez du temps, réduisez le stress du trading manuel." },
-                ].map((item, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.15, duration: 0.5 }}
-                    >
-                        <Card className="h-full bg-slate-800/40 border-slate-700/50 p-4 sm:p-6 text-center hover:bg-slate-800/60 transition-all duration-300">
-                            <div className="mb-4 inline-block p-4 bg-slate-700/50 rounded-full">{item.icon}</div>
-                            <h3 className="text-lg sm:text-xl font-bold mb-2 text-white">{item.title}</h3>
-                            <p className="text-sm sm:text-base text-gray-400 leading-relaxed">{item.desc}</p>
-                        </Card>
-                    </motion.div>
-                ))}
-            </div>
-          </div>
-        </Section>
-        
         <div id="how-it-works">
-            <LiveTrading/>
+          <LiveTrading/>
         </div>
 
-        {/* Comment ça marche */}
-        <Section>
-            <div className="container mx-auto px-4">
-                 <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
+        {/* Algorithm Visualization */}
+        <Section className="bg-gradient-to-b from-black/40 to-black/60">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+                <span className="gradient-text-primary font-mono">ALGORITHME</span> EN ACTION
+              </h2>
+            </motion.div>
+
+            <div className="relative">
+              <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 opacity-30"></div>
+              <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+                {[
+                  { 
+                    step: "01", 
+                    title: "SCAN MULTI-EXCHANGE", 
+                    desc: "Surveillance simultanée de 15+ plateformes crypto majeures",
+                    icon: <Database className="w-8 h-8" />
+                  },
+                  { 
+                    step: "02", 
+                    title: "DÉTECTION OPPORTUNITÉS", 
+                    desc: "IA identifie les écarts de prix rentables en <100ms",
+                    icon: <Eye className="w-8 h-8" />
+                  },
+                  { 
+                    step: "03", 
+                    title: "EXÉCUTION AUTOMATIQUE", 
+                    desc: "Achat/vente simultané sur exchanges différents",
+                    icon: <Zap className="w-8 h-8" />
+                  },
+                  { 
+                    step: "04", 
+                    title: "PROFIT SÉCURISÉ", 
+                    desc: "Bénéfices transférés instantanément sur votre compte",
+                    icon: <TrendingUp className="w-8 h-8" />
+                  },
+                ].map((step, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center mb-12 sm:mb-16"
-                >
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
-                      Comment ça fonctionne, concrètement ?
-                    </h2>
-                </motion.div>
-                <div className="relative">
-                    <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-700/50" aria-hidden="true"></div>
-                    <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
-                        {[
-                            { title: "Créez votre compte", desc: "Un email et un mot de passe suffisent pour commencer votre aventure." },
-                            { title: "Connectez votre plateforme", desc: "Via API sécurisée (Binance, Kraken, etc.). Simple et rapide." },
-                            { title: "Activez votre bot", desc: "Choisissez une stratégie ou laissez notre IA optimiser pour vous." },
-                            { title: "Suivez vos gains", desc: "Tableau de bord simple et transparent. Retirez à tout moment." },
-                        ].map((step, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.2, duration: 0.5 }}
-                                className="text-center"
-                            >
-                                <div className="mb-4 w-12 h-12 sm:w-16 sm:h-16 mx-auto rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-xl sm:text-2xl font-bold shadow-lg">
-                                    {i + 1}
-                                </div>
-                                <h3 className="text-lg sm:text-xl font-bold mb-2 text-white">{step.title}</h3>
-                                <p className="text-sm sm:text-base text-gray-400 leading-relaxed">{step.desc}</p>
-                            </motion.div>
-                        ))}
+                    transition={{ delay: i * 0.2, duration: 0.5 }}
+                    className="text-center relative"
+                  >
+                    <div className="mb-6 w-20 h-20 mx-auto glass-card neon-border rounded-full flex items-center justify-center text-2xl font-bold font-mono gradient-text-primary animate-pulse-neon">
+                      {step.step}
                     </div>
-                </div>
+                    <div className="mb-4 text-cyan-400">
+                      {step.icon}
+                    </div>
+                    <h3 className="text-lg font-bold mb-3 text-white font-mono">{step.title}</h3>
+                    <p className="text-gray-300 leading-relaxed text-sm">{step.desc}</p>
+                    <div className="data-bar mt-4"></div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
+          </div>
         </Section>
         
         <div id="reviews">
           <CustomerReviews />
         </div>
-
       </main>
 
-      <footer className="bg-slate-900/80 border-t border-slate-800 py-8 sm:py-12">
-          <div className="container mx-auto px-4 text-center">
-              <p className="text-2xl font-bold gradient-text mb-4">CryptoBoost</p>
-              <p className="text-gray-400 mb-6 text-sm sm:text-base">Rejoignez-nous sur Telegram pour les dernières mises à jour.</p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                 <Button asChild variant="ghost" className="bg-white/10 hover:bg-white/20 text-white rounded-full px-4 py-2 transition-all duration-300 shadow-lg backdrop-blur-sm border border-cyan-300/20 hover:border-cyan-300/50">
-                  <a href="https://t.me/louis_botcrypto" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <Send className="w-4 h-4 mr-2 text-cyan-300" /> Telegram Bot
-                  </a>
-                </Button>
-                <Button asChild variant="ghost" className="bg-white/10 hover:bg-white/20 text-white rounded-full px-4 py-2 transition-all duration-300 shadow-lg backdrop-blur-sm border border-purple-300/20 hover:border-purple-300/50">
-                  <a href="https://t.me/direction_ltd_crypto67" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <Send className="w-4 h-4 mr-2 text-purple-300" /> Conseiller
-                  </a>
-                </Button>
-              </div>
-               <p className="text-xs text-gray-500 mt-6 sm:mt-8">&copy; {new Date().getFullYear()} CryptoBoost. Tous droits réservés.</p>
+      <footer className="glass-card border-t border-cyan-500/20 py-12">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-3xl font-bold gradient-text-primary mb-6 font-mono">⚡ CryptoBoost</p>
+          <p className="text-cyan-200 mb-8 text-lg">Rejoignez notre communauté de traders automatisés</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-6 mb-8">
+            <Button asChild className="btn-tech px-6 py-3">
+              <a href="https://t.me/louis_botcrypto" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                <Send className="w-5 h-5 mr-2 text-cyan-300" /> 
+                <span className="font-semibold">Trading Bot Channel</span>
+              </a>
+            </Button>
+            <Button asChild className="btn-tech px-6 py-3">
+              <a href="https://t.me/direction_ltd_crypto67" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                <Send className="w-5 h-5 mr-2 text-purple-300" /> 
+                <span className="font-semibold">Support Expert</span>
+              </a>
+            </Button>
           </div>
+          <div className="text-xs text-gray-500 font-mono">
+            &copy; {new Date().getFullYear()} CryptoBoost • Technologie d'arbitrage automatisé
+          </div>
+        </div>
       </footer>
     </div>
   );

@@ -223,144 +223,152 @@ const CryptoWallet = ({ user, updateUser, onDataUpdate }) => {
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 sm:space-y-8">
-      <Card className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-slate-700 backdrop-blur-sm">
+      <Card className="glass-card neon-border backdrop-blur-sm">
         <CardHeader className="p-4 sm:p-6">
-          <CardTitle className="text-xl sm:text-2xl text-white">Mon Portefeuille</CardTitle>
+          <CardTitle className="text-xl sm:text-2xl text-white font-mono gradient-text-primary flex items-center">
+            <Wallet className="w-6 h-6 mr-3" />
+            PORTEFEUILLE CRYPTO
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 sm:space-y-6 p-4 sm:p-6 pt-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="p-6 rounded-lg bg-gradient-to-r from-blue-600/30 to-purple-600/30 text-center flex flex-col items-center justify-center">
-                <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 mb-2 text-blue-300"/>
-                <p className="text-sm sm:text-base lg:text-lg text-gray-300">Capital Investi</p>
-                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(user.investedCapital || 0)}</p>
+              <div className="glass-card-dark p-6 rounded-lg neon-border text-center flex flex-col items-center justify-center">
+                <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 mb-2 text-cyan-400"/>
+                <p className="text-sm sm:text-base lg:text-lg text-cyan-300 font-mono">CAPITAL INVESTI</p>
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white font-mono">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(user.investedCapital || 0)}</p>
+                <div className="data-bar mt-2 w-full"></div>
               </div>
-              <div className="p-6 rounded-lg bg-gradient-to-r from-green-600/30 to-cyan-600/30 text-center flex flex-col items-center justify-center">
+              <div className="glass-card-dark p-6 rounded-lg neon-border text-center flex flex-col items-center justify-center">
                 <BarChartBig className="w-6 h-6 sm:w-8 sm:h-8 mb-2 text-green-300"/>
-                <p className="text-sm sm:text-base lg:text-lg text-gray-300">Bénéfices</p>
-                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(displayedBenefits)}</p>
+                <p className="text-sm sm:text-base lg:text-lg text-green-300 font-mono">BÉNÉFICES IA</p>
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold gradient-text-success font-mono">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(displayedBenefits)}</p>
+                <div className="data-bar mt-2 w-full"></div>
               </div>
-               <div className="p-6 rounded-lg bg-gradient-to-r from-purple-600/30 to-pink-600/30 text-center flex flex-col items-center justify-center sm:col-span-2 lg:col-span-1">
+               <div className="glass-card-dark p-6 rounded-lg neon-border text-center flex flex-col items-center justify-center sm:col-span-2 lg:col-span-1">
                 <Layers className="w-6 h-6 sm:w-8 sm:h-8 mb-2 text-purple-300"/>
-                <p className="text-sm sm:text-base lg:text-lg text-gray-300">Capital Total</p>
-                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(user.totalCapital || 0)}</p>
+                <p className="text-sm sm:text-base lg:text-lg text-purple-300 font-mono">CAPITAL TOTAL</p>
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white font-mono">{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(user.totalCapital || 0)}</p>
+                <div className="data-bar mt-2 w-full"></div>
               </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Dialog open={isDepositOpen} onOpenChange={setDepositOpen}>
               <DialogTrigger asChild>
-                <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 sm:py-6 text-sm sm:text-base lg:text-lg">
+                <Button className="w-full btn-tech py-4 sm:py-6 text-sm sm:text-base lg:text-lg neon-border animate-pulse-neon">
                   <ArrowDownToLine className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> 
-                  <span className="hidden sm:inline">Déposer du Capital</span>
-                  <span className="sm:hidden">Déposer</span>
+                  <span className="hidden sm:inline font-mono">DÉPOSER CAPITAL</span>
+                  <span className="sm:hidden font-mono">DÉPOSER</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-md bg-slate-900 border-slate-700 text-white">
-                <DialogHeader><DialogTitle>Déposer du Capital</DialogTitle></DialogHeader>
+              <DialogContent className="sm:max-w-md glass-card border-cyan-500/30 text-white">
+                <DialogHeader><DialogTitle className="font-mono gradient-text-primary">DÉPOSER CAPITAL CRYPTO</DialogTitle></DialogHeader>
                 <Tabs value={activeDepositTab} onValueChange={setActiveDepositTab} className="w-full mt-4">
-                  <TabsList className="grid w-full grid-cols-3 bg-slate-800"><TabsTrigger value="BTC">BTC</TabsTrigger><TabsTrigger value="ETH">ETH</TabsTrigger><TabsTrigger value="SOL">SOL</TabsTrigger></TabsList>
+                  <TabsList className="grid w-full grid-cols-3 glass-card-dark"><TabsTrigger value="BTC" className="font-mono">BTC</TabsTrigger><TabsTrigger value="ETH" className="font-mono">ETH</TabsTrigger><TabsTrigger value="SOL" className="font-mono">SOL</TabsTrigger></TabsList>
                   <TabsContent value={activeDepositTab}>
                       <div className="py-4 space-y-4">
-                        <div><Label htmlFor="deposit-amount" className="text-gray-300">Montant du dépôt en EUR</Label><Input id="deposit-amount" type="number" value={depositAmount} onChange={e => setDepositAmount(e.target.value)} placeholder="Ex: 500" className="bg-slate-800 border-slate-600 mt-1" /></div>
-                        <p className="text-center text-sm text-yellow-400">Envoyez la contre-valeur en {activeDepositTab} à l'adresse ci-dessous.</p>
-                        <div className="p-4 rounded-md bg-slate-800 border border-slate-600">
-                          <Label htmlFor={`deposit-address-${activeDepositTab}`} className="text-gray-300">Adresse de dépôt {activeDepositTab}</Label>
+                        <div><Label htmlFor="deposit-amount" className="text-cyan-300 font-mono">MONTANT DÉPÔT (EUR)</Label><Input id="deposit-amount" type="number" value={depositAmount} onChange={e => setDepositAmount(e.target.value)} placeholder="Ex: 500" className="glass-card-dark border-cyan-500/30 mt-1 font-mono" /></div>
+                        <div className="glass-card-dark p-4 rounded-lg border border-yellow-500/30">
+                          <p className="text-center text-sm text-yellow-400 font-mono">Envoyez la contre-valeur en {activeDepositTab} à l'adresse ci-dessous.</p>
+                        </div>
+                        <div className="glass-card-dark p-4 rounded-md border border-cyan-500/30">
+                          <Label htmlFor={`deposit-address-${activeDepositTab}`} className="text-cyan-300 font-mono">ADRESSE DÉPÔT {activeDepositTab}</Label>
                           <div className="flex items-center space-x-2 mt-2">
-                            <Input id={`deposit-address-${activeDepositTab}`} value={depositAddresses[activeDepositTab] || ''} readOnly className="bg-slate-700 border-slate-500" />
-                            <Button variant="outline" size="icon" onClick={() => handleCopyToClipboard(depositAddresses[activeDepositTab] || '')} className="bg-purple-600 hover:bg-purple-700 border-purple-500">{copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}</Button>
+                            <Input id={`deposit-address-${activeDepositTab}`} value={depositAddresses[activeDepositTab] || ''} readOnly className="glass-card-dark border-cyan-500/30 font-mono text-sm" />
+                            <Button variant="outline" size="icon" onClick={() => handleCopyToClipboard(depositAddresses[activeDepositTab] || '')} className="btn-tech border-cyan-500/30">{copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}</Button>
                           </div>
                         </div>
                       </div>
                     </TabsContent>
                 </Tabs>
-                <DialogFooter><Button onClick={handleDepositConfirmation} className="w-full bg-gradient-to-r from-green-600 to-green-500">Confirmer le dépôt</Button></DialogFooter>
+                <DialogFooter><Button onClick={handleDepositConfirmation} className="w-full btn-tech neon-border font-mono">CONFIRMER DÉPÔT</Button></DialogFooter>
               </DialogContent>
             </Dialog>
             <Dialog open={isWithdrawOpen} onOpenChange={(open) => { if (!open) { setWithdrawOpen(false); setWithdrawStep(1); }}}>
               <DialogTrigger asChild>
-                <Button onClick={handleWithdrawalAttempt} className="w-full bg-red-600 hover:bg-red-700 text-white py-4 sm:py-6 text-sm sm:text-base lg:text-lg">
+                <Button onClick={handleWithdrawalAttempt} className="w-full btn-tech py-4 sm:py-6 text-sm sm:text-base lg:text-lg border-red-500/30 hover:border-red-400">
                   <ArrowUpFromLine className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> 
-                  <span className="hidden sm:inline">Effectuer un Retrait</span>
-                  <span className="sm:hidden">Retirer</span>
+                  <span className="hidden sm:inline font-mono">RETRAIT CRYPTO</span>
+                  <span className="sm:hidden font-mono">RETRAIT</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-lg bg-slate-900 border-slate-700 text-white">
-                <DialogHeader><DialogTitle>Retirer vos fonds en Crypto</DialogTitle></DialogHeader>
+              <DialogContent className="sm:max-w-lg glass-card border-red-500/30 text-white">
+                <DialogHeader><DialogTitle className="font-mono gradient-text-primary">RETRAIT CRYPTO</DialogTitle></DialogHeader>
                 {withdrawStep === 1 && (
                   <div className="py-4 space-y-4">
                     {hasInvestmentHistory ? (
                       <>
-                        <DialogDescription className="text-gray-400">Pour initier le retrait, vous devez d'abord payer des frais de performance de 3% en avance.</DialogDescription>
-                        <div className="p-4 bg-slate-800 rounded-lg space-y-2">
-                          <div className="flex justify-between"><span className="text-gray-400">Capital total à retirer:</span> <span>{withdrawableAmount.toFixed(2)}€</span></div>
-                          <div className="flex justify-between text-red-400 font-bold"><span className="text-gray-400">Frais de performance (3%):</span> <span>{withdrawalTax.toFixed(2)}€</span></div>
+                        <DialogDescription className="text-cyan-200 font-mono">Frais de performance 3% requis pour initier le retrait.</DialogDescription>
+                        <div className="glass-card-dark p-4 rounded-lg space-y-2">
+                          <div className="flex justify-between"><span className="text-cyan-400 font-mono">Capital à retirer:</span> <span className="font-mono">{withdrawableAmount.toFixed(2)}€</span></div>
+                          <div className="flex justify-between text-red-400 font-bold"><span className="text-cyan-400 font-mono">Frais performance (3%):</span> <span className="font-mono">{withdrawalTax.toFixed(2)}€</span></div>
                         </div>
-                        <div className="flex items-start p-3 bg-blue-900/30 rounded-lg text-blue-300 border border-blue-500/30">
+                        <div className="flex items-start p-3 glass-card-dark rounded-lg text-cyan-300 border border-cyan-500/30">
                           <Info className="w-5 h-5 mr-3 mt-1 shrink-0" />
-                          <p className="text-xs">Veuillez payer les frais de {withdrawalTax.toFixed(2)}€ à l'une des adresses de frais dédiées. Une fois le paiement effectué, cliquez sur "Continuer" pour soumettre votre demande de retrait.</p>
+                          <p className="text-xs font-mono">Paiement frais {withdrawalTax.toFixed(2)}€ requis aux adresses dédiées avant retrait.</p>
                         </div>
                         <Tabs value={activeWithdrawTab} onValueChange={setActiveWithdrawTab} className="w-full mt-4">
-                          <TabsList className="grid w-full grid-cols-3 bg-slate-800"><TabsTrigger value="BTC">BTC</TabsTrigger><TabsTrigger value="ETH">ETH</TabsTrigger><TabsTrigger value="SOL">SOL</TabsTrigger></TabsList>
+                          <TabsList className="grid w-full grid-cols-3 glass-card-dark"><TabsTrigger value="BTC" className="font-mono">BTC</TabsTrigger><TabsTrigger value="ETH" className="font-mono">ETH</TabsTrigger><TabsTrigger value="SOL" className="font-mono">SOL</TabsTrigger></TabsList>
                           <TabsContent value={activeWithdrawTab}>
-                            <div className="p-4 rounded-md bg-slate-800 border border-slate-600 mt-2">
-                              <Label htmlFor={`fee-address-${activeWithdrawTab}`} className="text-gray-300">Adresse de paiement des frais ({activeWithdrawTab})</Label>
+                            <div className="glass-card-dark p-4 rounded-md border border-yellow-500/30 mt-2">
+                              <Label htmlFor={`fee-address-${activeWithdrawTab}`} className="text-yellow-300 font-mono">ADRESSE FRAIS ({activeWithdrawTab})</Label>
                               <div className="flex items-center space-x-2 mt-2">
-                                <Input id={`fee-address-${activeWithdrawTab}`} value={feeAddresses[activeWithdrawTab] || ''} readOnly className="bg-slate-700 border-slate-500" />
-                                <Button variant="outline" size="icon" onClick={() => handleCopyToClipboard(feeAddresses[activeWithdrawTab] || '')} className="bg-purple-600 hover:bg-purple-700 border-purple-500">{copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}</Button>
+                                <Input id={`fee-address-${activeWithdrawTab}`} value={feeAddresses[activeWithdrawTab] || ''} readOnly className="glass-card-dark border-yellow-500/30 font-mono text-sm" />
+                                <Button variant="outline" size="icon" onClick={() => handleCopyToClipboard(feeAddresses[activeWithdrawTab] || '')} className="btn-tech border-yellow-500/30">{copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}</Button>
                               </div>
                             </div>
                           </TabsContent>
                         </Tabs>
                       </>
                     ) : (
-                      <DialogDescription className="text-gray-400">Vous êtes sur le point de retirer votre capital. Comme vous n'avez pas encore d'historique d'investissement, aucun frais de performance ne s'applique.</DialogDescription>
+                      <DialogDescription className="text-cyan-200 font-mono">Retrait sans frais - aucun historique d'investissement détecté.</DialogDescription>
                     )}
                   </div>
                 )}
                 {withdrawStep === 2 && (
                   <div className="py-4 space-y-4">
-                     <DialogDescription className="text-gray-400">Veuillez sélectionner la cryptomonnaie et fournir votre adresse de réception pour le capital de {withdrawableAmount.toFixed(2)}€.</DialogDescription>
+                     <DialogDescription className="text-cyan-200 font-mono">Sélectionnez crypto et adresse de réception pour {withdrawableAmount.toFixed(2)}€.</DialogDescription>
                      <Tabs value={activeWithdrawTab} onValueChange={setActiveWithdrawTab} className="w-full mt-4">
-                        <TabsList className="grid w-full grid-cols-3 bg-slate-800"><TabsTrigger value="BTC">BTC</TabsTrigger><TabsTrigger value="ETH">ETH</TabsTrigger><TabsTrigger value="SOL">SOL</TabsTrigger></TabsList>
+                        <TabsList className="grid w-full grid-cols-3 glass-card-dark"><TabsTrigger value="BTC" className="font-mono">BTC</TabsTrigger><TabsTrigger value="ETH" className="font-mono">ETH</TabsTrigger><TabsTrigger value="SOL" className="font-mono">SOL</TabsTrigger></TabsList>
                      </Tabs>
                      <div className="mt-4">
-                        <Label htmlFor="withdraw-address" className="text-gray-300">Votre adresse de portefeuille {activeWithdrawTab}</Label>
-                        <Input id="withdraw-address" value={withdrawAddress} onChange={(e) => setWithdrawAddress(e.target.value)} placeholder={`Entrez votre adresse ${activeWithdrawTab}`} className="bg-slate-800 border-slate-600 mt-1" />
+                        <Label htmlFor="withdraw-address" className="text-cyan-300 font-mono">ADRESSE WALLET {activeWithdrawTab}</Label>
+                        <Input id="withdraw-address" value={withdrawAddress} onChange={(e) => setWithdrawAddress(e.target.value)} placeholder={`Adresse ${activeWithdrawTab}`} className="glass-card-dark border-cyan-500/30 mt-1 font-mono" />
                      </div>
                   </div>
                 )}
-                <DialogFooter><Button onClick={() => { setWithdrawStep(1); setWithdrawOpen(false); }} variant="outline">Annuler</Button><Button onClick={handleWithdrawalConfirmation} className="bg-gradient-to-r from-purple-600 to-blue-600">{withdrawStep === 1 ? 'Continuer' : 'Soumettre la demande'}</Button></DialogFooter>
+                <DialogFooter><Button onClick={() => { setWithdrawStep(1); setWithdrawOpen(false); }} variant="outline" className="font-mono">ANNULER</Button><Button onClick={handleWithdrawalConfirmation} className="btn-tech font-mono">{withdrawStep === 1 ? 'CONTINUER' : 'SOUMETTRE'}</Button></DialogFooter>
               </DialogContent>
             </Dialog>
           </div>
         </CardContent>
       </Card>
       
-      <Card className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-slate-700 backdrop-blur-sm">
+      <Card className="glass-card neon-border backdrop-blur-sm">
         <CardHeader className="p-4 sm:p-6">
-          <CardTitle className="text-lg sm:text-xl lg:text-2xl text-white flex items-center">
+          <CardTitle className="text-lg sm:text-xl lg:text-2xl text-white flex items-center font-mono gradient-text-primary">
             <History className="w-5 h-5 sm:w-6 sm:h-6 mr-2"/>
-            <span className="hidden sm:inline">Historique des Transactions</span>
-            <span className="sm:hidden">Historique</span>
+            <span className="hidden sm:inline">HISTORIQUE TRANSACTIONS</span>
+            <span className="sm:hidden">HISTORIQUE</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4 sm:p-6 pt-0">
-          {transactions.length === 0 ? <p className="text-center text-gray-400">Vous n'avez encore aucune transaction.</p> : (
+          {transactions.length === 0 ? <p className="text-center text-cyan-400 font-mono">AUCUNE TRANSACTION DÉTECTÉE</p> : (
             <ul className="space-y-3 sm:space-y-4">
               {transactions.map(tx => (
-                  <li key={tx.id} className="p-3 sm:p-4 bg-slate-800 rounded-lg border border-slate-700/50">
+                  <li key={tx.id} className="glass-card-dark p-3 sm:p-4 rounded-lg neon-border">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
                       <div>
-                        <p className="font-semibold text-white text-sm sm:text-base">{getTransactionType(tx)}</p>
-                        <p className="text-xs sm:text-sm text-gray-300">{getTransactionDetails(tx)}</p>
-                        <p className="text-xs text-gray-400">{new Date(tx.date).toLocaleString('fr-FR')}</p>
+                        <p className="font-semibold text-white text-sm sm:text-base font-mono">{getTransactionType(tx)}</p>
+                        <p className="text-xs sm:text-sm text-cyan-300 font-mono">{getTransactionDetails(tx)}</p>
+                        <p className="text-xs text-gray-400 font-mono">{new Date(tx.date).toLocaleString('fr-FR')}</p>
                       </div>
                       <div className="self-end sm:self-auto">{getStatusBadge(tx)}</div>
                     </div>
                      {(tx.adminComment || tx.adminNote) && (
-                        <div className="mt-2 p-2 bg-slate-700/50 rounded-md text-xs sm:text-sm">
-                          <p className="text-cyan-300 flex items-start">
+                        <div className="mt-2 p-2 glass-card-dark rounded-md text-xs sm:text-sm border border-cyan-500/30">
+                          <p className="text-cyan-300 flex items-start font-mono">
                             <MessageSquare className="w-4 h-4 mr-2 mt-0.5 shrink-0" /> 
-                            <span>Note de l'admin : <span className="text-gray-300 ml-1">{tx.adminComment || tx.adminNote}</span></span>
+                            <span>ADMIN: <span className="text-white ml-1">{tx.adminComment || tx.adminNote}</span></span>
                           </p>
                         </div>
                       )}

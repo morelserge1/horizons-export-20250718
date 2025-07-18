@@ -1,71 +1,90 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Star, MessageSquare as MessageSquareQuote } from 'lucide-react';
+import { Star, MessageSquare as MessageSquareQuote, TrendingUp, Zap, Shield } from 'lucide-react';
 import { FaTelegramPlane } from 'react-icons/fa';
 
 const reviews = [
   {
-    author: "Alex D.",
+    author: "Alex_Trader_2024",
     platform: "Telegram",
-    text: "Incroyable ! J'ai commencé avec le plan Starter et j'ai vu des résultats rapidement. Le robot fait vraiment le travail. C'est presque trop beau pour être vrai !",
+    text: "Bot QUANTUM ELITE activé depuis 3 semaines. ROI de 847% déjà atteint ! L'algorithme détecte des opportunités que je n'aurais jamais vues. C'est de la pure technologie.",
     rating: 5,
-    color: "cyan"
+    color: "cyan",
+    profit: "+12,847€",
+    verified: true
   },
   {
-    author: "Marie L.",
+    author: "Marie_Crypto_Pro",
+    platform: "Discord",
+    text: "PRO ALGORITHM fonctionne parfaitement. Interface ultra-claire, exécution en millisecondes. Le support technique répond en moins de 5 minutes. Du jamais vu !",
+    rating: 5,
+    color: "purple",
+    profit: "+5,234€",
+    verified: true
+  },
+  {
+    author: "Julien_HFT_Master",
+    platform: "Telegram",
+    text: "Sceptique au début sur l'arbitrage automatisé, mais les résultats parlent. 4h d'attente et boom, objectif atteint. L'IA fait vraiment la différence.",
+    rating: 5,
+    color: "green",
+    profit: "+3,456€",
+    verified: true
+  },
+  {
+    author: "Sophie_DeFi_Queen",
     platform: "Forum",
-    text: "Très sceptique au début, mais CryptoBoost a dépassé toutes mes attentes. L'interface est super simple et le support est réactif. Je suis passée au plan Pro sans hésiter.",
+    text: "Transparence totale, retraits instantanés, frais clairement expliqués. Enfin une plateforme qui respecte ses utilisateurs. Je recommande à 200% !",
     rating: 5,
-    color: "purple"
+    color: "yellow",
+    profit: "+7,891€",
+    verified: true
   },
   {
-    author: "Julien R.",
+    author: "Kevin_Algo_Trader",
     platform: "Telegram",
-    text: "Les 4 heures d'attente pour les gains peuvent sembler longues, mais ça en vaut largement la peine quand on voit le résultat final. C'est une machine à cash !",
-    rating: 4,
-    color: "yellow"
-  },
-  {
-    author: "Sophie T.",
-    platform: "Recommandation",
-    text: "Enfin une plateforme qui tient ses promesses. Les retraits sont clairs, les frais sont expliqués. C'est transparent et ça marche. Je recommande à 100%.",
+    text: "STARTER BOT parfait pour débuter. L'algorithme de base est déjà très performant. Conseiller personnel au top, stratégies expliquées clairement.",
     rating: 5,
-    color: "green"
+    color: "blue",
+    profit: "+2,123€",
+    verified: true
   },
   {
-    author: "Kevin G.",
+    author: "Émilie_Blockchain",
+    platform: "Discord",
+    text: "Le ticker en temps réel est hypnotisant ! Voir les transactions s'exécuter automatiquement 24h/24, c'est magique. Technologie de pointe.",
+    rating: 5,
+    color: "pink",
+    profit: "+4,567€",
+    verified: true
+  },
+  {
+    author: "Lucas_Quant_Dev",
+    platform: "Telegram",
+    text: "API privée du QUANTUM ELITE = game changer. Accès aux données de trading institutionnel. C'est du niveau hedge fund accessible au retail.",
+    rating: 5,
+    color: "purple",
+    profit: "+15,234€",
+    verified: true
+  },
+  {
+    author: "Clara_AI_Enthusiast",
     platform: "Forum",
-    text: "J'ai pris le plan Expert et le conseiller personnel est un vrai plus. Des stratégies pointues et un suivi au top. C'est du sérieux.",
+    text: "L'IA prédictive analyse 50+ indicateurs simultanément. Impossible à faire manuellement. ROI constant, stress zéro. Révolutionnaire !",
     rating: 5,
-    color: "blue"
-  },
-   {
-    author: "Émilie B.",
-    platform: "Telegram",
-    text: "Le fait de voir les transactions en direct avec le ticker est super rassurant. On sent que ça travaille en permanence. Très pro !",
-    rating: 5,
-    color: "pink"
-  },
-  {
-    author: "Lucas M.",
-    platform: "Telegram",
-    text: "Contacté le conseiller sur Telegram, réponse en moins de 10 minutes. Il m'a guidé pour mon premier investissement. Service client au top !",
-    rating: 5,
-    color: "purple"
-  },
-  {
-    author: "Clara P.",
-    platform: "Telegram",
-    text: "Le bot Telegram est super pratique pour avoir des nouvelles rapides. J'ai eu une question sur mon plan, et j'ai eu ma réponse via le bot. Efficace !",
-    rating: 5,
-    color: "cyan"
+    color: "cyan",
+    profit: "+6,789€",
+    verified: true
   },
 ];
 
 const PlatformIcon = ({ platform }) => {
   if (platform === "Telegram") {
     return <FaTelegramPlane className="w-4 h-4 text-cyan-400" />;
+  }
+  if (platform === "Discord") {
+    return <MessageSquareQuote className="w-4 h-4 text-purple-400" />;
   }
   return <MessageSquareQuote className="w-4 h-4 text-gray-400" />;
 };
@@ -76,53 +95,129 @@ const ReviewCard = ({ review, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay: index * 0.1, duration: 0.5 }}
-    className="h-full"
+    className="h-full group"
   >
-    <Card className={`h-full flex flex-col bg-slate-900/50 border-2 border-slate-800 backdrop-blur-sm shadow-lg shadow-slate-900/50 p-6`}>
+    <Card className="h-full flex flex-col glass-card neon-border backdrop-blur-sm shadow-lg group-hover:neon-glow transition-all duration-500 p-6 holographic">
       <CardHeader className="p-0 mb-4">
-        <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold text-white">{review.author}</CardTitle>
-            <div className="flex items-center gap-2 text-xs text-gray-400">
-                <PlatformIcon platform={review.platform} />
-                <span>via {review.platform}</span>
-            </div>
+        <div className="flex items-center justify-between mb-3">
+          <CardTitle className="text-lg font-bold text-white font-mono flex items-center">
+            {review.author}
+            {review.verified && (
+              <Shield className="w-4 h-4 text-green-400 ml-2" title="Utilisateur vérifié" />
+            )}
+          </CardTitle>
+          <div className="flex items-center gap-2 text-xs text-gray-400">
+            <PlatformIcon platform={review.platform} />
+            <span className="font-mono">{review.platform}</span>
+          </div>
         </div>
-        <div className="flex items-center mt-1">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className={`w-4 h-4 ${i < review.rating ? `text-yellow-400 fill-yellow-400` : `text-gray-600`}`} />
-          ))}
+        
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            {[...Array(5)].map((_, i) => (
+              <Star 
+                key={i} 
+                className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} 
+              />
+            ))}
+          </div>
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-green-400" />
+            <span className="text-green-400 font-mono font-bold text-sm">{review.profit}</span>
+          </div>
         </div>
       </CardHeader>
+
       <CardContent className="p-0 flex-grow">
-        <p className="text-gray-300 italic">"{review.text}"</p>
+        <blockquote className="text-cyan-100 italic leading-relaxed">
+          "{review.text}"
+        </blockquote>
       </CardContent>
+
+      <div className="mt-4 pt-4 border-t border-gray-700/50">
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-gray-500 font-mono">TRADER VÉRIFIÉ</span>
+          <div className="flex items-center gap-1">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span className="text-green-400 font-mono">ACTIF</span>
+          </div>
+        </div>
+      </div>
     </Card>
   </motion.div>
 );
 
 const CustomerReviews = () => {
   return (
-    <div className="py-8 sm:py-12">
+    <div className="py-16 bg-gradient-to-b from-black/40 to-black/20">
       <div className="container mx-auto px-4">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-8 sm:mb-12"
-      >
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
-          Ce que Nos Investisseurs Disent
-        </h2>
-        <p className="mt-4 text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-          La confiance de notre communauté est notre plus grande réussite.
-        </p>
-      </motion.div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-        {reviews.map((review, index) => (
-          <ReviewCard key={index} review={review} index={index} />
-        ))}
-      </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+            <span className="gradient-text-primary font-mono">COMMUNAUTÉ</span> DE TRADERS
+          </h2>
+          <p className="text-xl text-cyan-100 max-w-3xl mx-auto leading-relaxed mb-8">
+            Rejoignez plus de 500 traders qui automatisent leurs profits avec nos algorithmes IA
+          </p>
+
+          {/* Community Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
+            {[
+              { label: "TRADERS ACTIFS", value: "500+", icon: <TrendingUp className="w-6 h-6" />, color: "text-cyan-400" },
+              { label: "PROFITS GÉNÉRÉS", value: "€2.4M", icon: <Zap className="w-6 h-6" />, color: "text-green-400" },
+              { label: "TAUX DE SUCCÈS", value: "94.7%", icon: <Shield className="w-6 h-6" />, color: "text-purple-400" },
+              { label: "SATISFACTION", value: "98.2%", icon: <Star className="w-6 h-6" />, color: "text-yellow-400" }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="glass-card p-4 rounded-xl neon-border text-center"
+              >
+                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-black/30 mb-3 ${stat.color}`}>
+                  {stat.icon}
+                </div>
+                <div className={`text-2xl font-bold font-mono ${stat.color}`}>{stat.value}</div>
+                <div className="text-xs text-gray-400 font-mono">{stat.label}</div>
+                <div className="data-bar mt-2"></div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {reviews.map((review, index) => (
+            <ReviewCard key={index} review={review} index={index} />
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="text-center mt-16"
+        >
+          <div className="glass-card p-8 rounded-2xl neon-border max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-white font-mono mb-4">
+              REJOIGNEZ LA RÉVOLUTION
+            </h3>
+            <p className="text-cyan-200 mb-6">
+              Automatisez vos profits crypto avec l'IA la plus avancée du marché
+            </p>
+            <div className="text-sm font-mono text-gray-400">
+              +30-40 nouveaux traders automatisés chaque mois
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
